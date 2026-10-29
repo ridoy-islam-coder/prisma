@@ -55,24 +55,27 @@
 // }
 
 // main();
-
 import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
 async function main() {
   try {
-    // একসঙ্গে ৬টি মুভির ডামি ডাটা তৈরি করা
-    const createManyMovies = await prisma.movie.findMany()
+    // এখানে prisma.movie.create এর বদলে prisma.user.create ব্যবহার করতে হবে
+    const createUserWithWatchlist = await prisma.user.findUnique({
+      where: { id: "d8e35109-4b7f-45c9-a9f6-6338bb8a5096" },
+      include: { watchlist: true },
+    });
+    console.log("ইউজার সফলভাবে তৈরি হয়েছে:", createUserWithWatchlist);
 
-    console.log("৬টি ডামি মুভি সফলভাবে তৈরি হয়েছে:", createManyMovies);
-
-    // ডাটাবেজ থেকে সব মুভি দেখতে চাইলে:
-    const allMovies = await prisma.movie.findMany();
-    console.log("সব মুভির লিস্ট:", allMovies);
+    // সব ইউজার দেখতে চাইলে:
+    // const allUsers = await prisma.user.findMany({
+    //   include: { watchlist: true }, // ওয়াচলিস্টের মুভিগুলো সহ দেখতে চাইলে
+    // });
+    // console.log("সব ইউজারের লিস্ট:", allUsers);
 
   } catch (error) {
-    console.error("মুভির ডামি ডাটা তৈরি করার সময় এরর হয়েছে:", error);
+    console.error("ইউজার তৈরি করার সময় এরর হয়েছে:", error);
   } finally {
     await prisma.$disconnect();
   }
