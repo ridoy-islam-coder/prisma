@@ -63,47 +63,7 @@ const prisma = new PrismaClient();
 async function main() {
   try {
     // একসঙ্গে ৬টি মুভির ডামি ডাটা তৈরি করা
-    const createManyMovies = await prisma.movie.createMany({
-      data: [
-        {
-          title: "Inception",
-          director: "Christopher Nolan",
-          rating: "8.8",
-          genre: "Sci-Fi",
-        },
-        {
-          title: "The Shawshank Redemption",
-          director: "Frank Darabont",
-          rating: "9.3",
-          genre: "Drama",
-        },
-        {
-          title: "The Dark Knight",
-          director: "Christopher Nolan",
-          rating: "9.0",
-          genre: "Action",
-        },
-        {
-          title: "Interstellar",
-          director: "Christopher Nolan",
-          rating: "8.7",
-          genre: "Sci-Fi",
-        },
-        {
-          title: "Pulp Fiction",
-          director: "Quentin Tarantino",
-          rating: "8.9",
-          genre: "Crime",
-        },
-        {
-          title: "Titanic",
-          director: "James Cameron",
-          rating: "7.9",
-          genre: "Romance",
-        },
-      ],
-      skipDuplicates: true, // যদি কোনো ডুপ্লিকেট এন্ট্রি থাকে তবে স্কিপ করবে
-    });
+    const createManyMovies = await prisma.movie.findMany()
 
     console.log("৬টি ডামি মুভি সফলভাবে তৈরি হয়েছে:", createManyMovies);
 
