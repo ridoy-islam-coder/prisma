@@ -1,5 +1,5 @@
 // This is your Prisma schema file
-
+// "dev": "ts-node-dev --respawn --transpile-only src/server.ts",
 generator client {
   provider = "prisma-client-js"
 }
