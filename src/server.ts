@@ -55,30 +55,31 @@
 // }
 
 // main();
-import { PrismaClient } from "@prisma/client";
 
-const prisma = new PrismaClient();
+// import { PrismaClient } from "@prisma/client";
 
-async function main() {
-  try {
-    // এখানে prisma.movie.create এর বদলে prisma.user.create ব্যবহার করতে হবে
-    const createUserWithWatchlist = await prisma.user.findUnique({
-      where: { id: "d8e35109-4b7f-45c9-a9f6-6338bb8a5096" },
-      include: { watchlist: true },
-    });
-    console.log("ইউজার সফলভাবে তৈরি হয়েছে:", createUserWithWatchlist);
+// const prisma = new PrismaClient();
 
-    // সব ইউজার দেখতে চাইলে:
-    // const allUsers = await prisma.user.findMany({
-    //   include: { watchlist: true }, // ওয়াচলিস্টের মুভিগুলো সহ দেখতে চাইলে
-    // });
-    // console.log("সব ইউজারের লিস্ট:", allUsers);
+// async function main() {
+//   try {
+//     // ১. সব ইউজার একসাথে ডিলিট করতে চাইলে (deleteMany ব্যবহার করতে হবে)
+//     const deleteUsers = await prisma.movie.deleteMany({
+//       // যদি আপনি নির্দিষ্ট কোনো শর্ত বা ফিল্টার ছাড়া সব ডিলিট করতে চান, 
+//       // তবে where ক্লজ খালি বা বাদ দিতে পারেন (তবে অনেক প্রজেক্টে খালি where দেওয়া লাগে না)।
+//       // যেমন: নির্দিষ্ট ইমেইলের ইউজার ডিলিট করতে চাইলে where ব্যবহার করা যায়।
+//     });
 
-  } catch (error) {
-    console.error("ইউজার তৈরি করার সময় এরর হয়েছে:", error);
-  } finally {
-    await prisma.$disconnect();
-  }
-}
+//     console.log(`${deleteUsers.count} টি ইউজার সফলভাবে ডিলিট করা হয়েছে!`);
 
-main();
+//     // ২. ডিলিট হওয়ার পর ইউজার লিস্ট চেক করতে চাইলে:
+//     const remainingUsers = await prisma.user.findMany();
+//     console.log("বাকি ইউজার লিস্ট:", remainingUsers);
+
+//   } catch (error) {
+//     console.error("ডাটা ডিলিট করার সময় এরর হয়েছে:", error);
+//   } finally {
+//     await prisma.$disconnect();
+//   }
+// }
+
+// main();
